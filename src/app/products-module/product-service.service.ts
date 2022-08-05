@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
 import { Product, Row } from '../Interface/Interface';
-import PouchDB from 'pouchdb-browser';
+//import PouchDB from 'pouchdb-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +15,9 @@ export class ProductServiceService {
     availability: [],
   };
 
-  private localDb;
+  //private localDb;
 
+  /*
   constructor() {
     this.localDb = new PouchDB('phones');
     const remoteDb = new PouchDB(
@@ -27,7 +28,8 @@ export class ProductServiceService {
       retry: true,
     });
   }
-  //constructor(private httpClient: HttpClient) {}
+  */
+  constructor(private httpClient: HttpClient) {}
 
   setSelectedProducts(products: Product[]): void {
     this.selectedProducts = products;
@@ -63,6 +65,7 @@ export class ProductServiceService {
     return results;
   }
 
+  /*
   getAllDocs(): Observable<Product[]> {
     return from(
       this.localDb.allDocs({
@@ -77,7 +80,8 @@ export class ProductServiceService {
   getDocById(id: string): Observable<Product> {
     return from(this.localDb.get(id) as Promise<Product>);
   }
-  /*
+  */
+
   getAllDocs(): Observable<any> {
     return this.httpClient
       .get<any>(
@@ -98,5 +102,5 @@ export class ProductServiceService {
       'https://6a59157b-430d-4969-b802-b9c12470dafb-bluemix.cloudantnosqldb.appdomain.cloud/phones/' +
         id
     );
-  }*/
+  }
 }
