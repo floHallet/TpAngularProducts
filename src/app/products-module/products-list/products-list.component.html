@@ -1,0 +1,17 @@
+<ag-grid-angular
+    style="width: 100%; height: 600px;"
+    class="ag-theme-balham"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    rowSelection="multiple"
+    (rowClicked)="handleRowClick($event)"
+    (selectionChanged)="handleSelectionChanged($event)">
+</ag-grid-angular>
+
+<!--<st-button-link [path]="['products', 'compare']">
+  Comparer
+</st-button-link>
+-->
+
+<p-button label="Compare products" (onClick)="handleButtonClick()" [disabled]="disableButton"></p-button>

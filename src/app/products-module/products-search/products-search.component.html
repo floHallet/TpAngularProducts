@@ -1,0 +1,25 @@
+<div class="p-float-label">
+  <input id="float-input" type="text" pInputText [(ngModel)]="name" />
+  <label for="float-input"><i class="pi pi-search"></i> Search</label>
+</div>
+<div>
+  <p-triStateCheckbox
+    [(ngModel)]="fmRadio"
+    label="FM radio"
+  ></p-triStateCheckbox>
+</div>
+<div>
+  Availability :
+  <p-listbox
+    [options]="labels"
+    [(ngModel)]="availability"
+    optionLabel="label"
+    [style]="{ width: '30rem' }"
+    [multiple]="true"
+    [checkbox]="true"
+  ></p-listbox>
+</div>
+<div>
+  <button pButton type="button" label="See results" (click)="handleClick()"></button>
+  <button pButton type="button" label="Reset" icon="pi pi-times" class="p-button-text" (click)="reset()"></button>
+</div>

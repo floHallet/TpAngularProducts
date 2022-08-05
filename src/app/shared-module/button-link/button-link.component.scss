@@ -1,0 +1,22 @@
+@import "../../../styles/variables";
+
+:host {
+  display: block;
+  border-radius: 5px;
+  margin: 10px;
+  background-color: $color_st-darkBlue;
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  padding: 10px;
+  color: white;
+}
+
+a:hover {
+  color: darkseagreen;
+}
+

@@ -1,0 +1,4 @@
+<a [href]="href" (click)="handleClick($event)">
+  <ng-content></ng-content>
+  <i *ngIf="external" class="pi pi-external-link" style="font-size: 14px"></i>
+</a>

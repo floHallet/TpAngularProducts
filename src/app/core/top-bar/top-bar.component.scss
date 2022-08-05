@@ -1,0 +1,30 @@
+@import "../../../styles/variables";
+
+:host {
+  display: block;
+  background-color: $color-st_darkBlue;
+  color: white;
+  margin-bottom: 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+
+  a {
+    color: white;
+    padding: 12px;
+    cursor: pointer;
+  }
+
+  a:hover{
+    text-decoration: none;
+  }
+
+  a.current-page {
+    text-decoration: none;
+    font-weight: bold;
+    color: darkseagreen;
+  }
+}

@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  overflow: scroll;
+}
+
+section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+article {
+  max-width: 450px;
+  flex-basis: 350px;
+  flex-grow: 1;
+}
+
+.phone {
+  background-color: white;
+  padding: 1em;
+  max-width: 100%;
+  height: auto;
+}
+
+.phone-images {
+  background-color: white;
+  //height: 400px;
+  //width: 400px;
+}
+
+.specs {
+  margin-top: 0.5em;
+  padding-left: 2em;
+}
+
+.specs > li > span {
+  font-size: 1.2em;
+}
