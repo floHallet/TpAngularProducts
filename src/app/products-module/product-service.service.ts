@@ -1,4 +1,4 @@
-//import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, map, Observable } from 'rxjs';
 import { Product, Row } from '../Interface/Interface';
@@ -27,7 +27,7 @@ export class ProductServiceService {
       retry: true,
     });
   }
-  //constructor(private httpClient: HttpClient) {} AVANT EX14!
+  //constructor(private httpClient: HttpClient) {}
 
   setSelectedProducts(products: Product[]): void {
     this.selectedProducts = products;
@@ -77,7 +77,7 @@ export class ProductServiceService {
   getDocById(id: string): Observable<Product> {
     return from(this.localDb.get(id) as Promise<Product>);
   }
-  /* Method avant ex14
+  /*
   getAllDocs(): Observable<any> {
     return this.httpClient
       .get<any>(
@@ -88,7 +88,8 @@ export class ProductServiceService {
           rows.map((el: Row) => {
             return el.doc;
           })
-        )
+        ),
+        map((projects) => this.applyFilters(projects))
       );
   }
 
