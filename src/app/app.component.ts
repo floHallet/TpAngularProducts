@@ -1,29 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { filter, Observable } from 'rxjs';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'st-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
-  //title = 'tp-angular';
-  navEnd: Observable<NavigationEnd>;
-
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private title: Title) {
-    // Create a new Observable that publishes only the NavigationStart event
-    this.navEnd = router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ) as Observable<NavigationEnd>;
-  }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private title: Title
+  ) {}
 
   ngOnInit(): void {
-    this.navEnd.subscribe(() => {
-      //console.log(event);
-      this.title.setTitle(this.activatedRoute.firstChild!.snapshot.data['title']);
-    });
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => {
+          let child = this.activatedRoute.firstChild;
+          while (child) {
+            if (child.firstChild) {
+              child = child.firstChild;
+            } else if (child.snapshot.data && child.snapshot.data['title']) {
+              return child.snapshot.data['title'];
+            } else {
+              return null;
+            }
+          }
+          return null;
+        })
+      )
+      .subscribe((data: any) => {
+        if (data) {
+          this.title.setTitle(data);
+        }
+      });
   }
 }

@@ -52,6 +52,6 @@ import 'zone.js';  // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 //Ajout pour PouchDb
-//(window as any).global = window;
-//(window as any).process = {};
-//(window as any).process.nextTick = setTimeout;
+(window as any).global = window;
+(window as any).process = {};
+(window as any).process.nextTick = setTimeout;

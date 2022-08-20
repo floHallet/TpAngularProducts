@@ -1,8 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { from, map, Observable } from 'rxjs';
+//import { HttpClient } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
+import {
+  catchError,
+  from,
+  map,
+  Observable,
+  of,
+  retry,
+  tap,
+  throwError,
+} from 'rxjs';
 import { Product, Row } from '../Interface/Interface';
-//import PouchDB from 'pouchdb-browser';
+import PouchDB from 'pouchdb-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +24,11 @@ export class ProductServiceService {
     availability: [],
   };
 
-  //private localDb;
+  private localDb;
+  localDbHasBeenCalled = false;
 
-  /*
+  //constructor(private httpClient: HttpClient) {}
+
   constructor() {
     this.localDb = new PouchDB('phones');
     const remoteDb = new PouchDB(
@@ -27,9 +38,11 @@ export class ProductServiceService {
       live: true,
       retry: true,
     });
+    //firstcallto db
+    this.localDb.allDocs({
+      include_docs: true,
+    }).then(() => this.localDbHasBeenCalled=true);
   }
-  */
-  constructor(private httpClient: HttpClient) {}
 
   setSelectedProducts(products: Product[]): void {
     this.selectedProducts = products;
@@ -41,19 +54,23 @@ export class ProductServiceService {
     //console.log("applyfilters with", this.filters, results);
 
     if (this.filters.name) {
-      results = results.filter(({name}) => name.toLowerCase().includes(this.filters.name.toLowerCase()));
+      results = results.filter(({ name }) =>
+        name.toLowerCase().includes(this.filters.name.toLowerCase())
+      );
       //console.log("filter by name",results);
     }
 
     if (this.filters.fmRadio !== null) {
-      results = results.filter(({hardware}) => hardware.fmRadio === this.filters.fmRadio);
+      results = results.filter(
+        ({ hardware }) => hardware.fmRadio === this.filters.fmRadio
+      );
       //console.log("filter by fmradio",results);
     }
 
     if (this.filters.availability.length) {
-      results = results.filter(({availability}) => {
+      results = results.filter(({ availability }) => {
         for (const element of this.filters.availability) {
-          if (availability.includes(element["value"])) {
+          if (availability.includes(element['value'])) {
             return true;
           }
         }
@@ -65,7 +82,6 @@ export class ProductServiceService {
     return results;
   }
 
-  /*
   getAllDocs(): Observable<Product[]> {
     return from(
       this.localDb.allDocs({
@@ -80,8 +96,8 @@ export class ProductServiceService {
   getDocById(id: string): Observable<Product> {
     return from(this.localDb.get(id) as Promise<Product>);
   }
-  */
 
+  /*
   getAllDocs(): Observable<any> {
     return this.httpClient
       .get<any>(
@@ -102,5 +118,5 @@ export class ProductServiceService {
       'https://6a59157b-430d-4969-b802-b9c12470dafb-bluemix.cloudantnosqldb.appdomain.cloud/phones/' +
         id
     );
-  }
+  }*/
 }
